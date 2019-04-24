@@ -20,6 +20,7 @@ class Index:
     pinned: list(tuple(tuple, tuple))
         Cells which were defined at instantiation and thus immutable.
     """
+
     macro: tuple
     free: tuple
     pinned: tuple
@@ -66,7 +67,7 @@ def calc_energy(sudoku, indices):
         energy: int
             Energy of a system with a solved case corresponding to zero.
     """
-    energy = 3*sudoku.shape[0]**2
+    energy = 3 * sudoku.shape[0] ** 2
 
     for index in indices:
         energy -= len(set(sudoku[index.macro].flatten()))
@@ -75,6 +76,7 @@ def calc_energy(sudoku, indices):
     energy -= sum(len(set(sudoku[:, x])) for x in range(sudoku.shape[1]))
 
     return energy
+
 
 def new_swap_pair(indices):
     """
@@ -153,6 +155,7 @@ def swap_energy_diff(sudoku, swap_pair):
         -sum(len(set(sudoku[x, :])) for x in swap_pair[0])
         -sum(len(set(sudoku[:, x])) for x in swap_pair[1])
     )
+    # fmt: on
 
     return energy_diff
 
