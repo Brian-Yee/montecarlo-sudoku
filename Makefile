@@ -17,9 +17,6 @@ help:
 anneal:
 	python main.py data/sudoku/test.txt --technique annealing
 
-temper:
-	python main.py data/sudoku/test.txt --technique tempering
-
 # CORE ]--------------------------------------------------------------------------------------------
 .PHONY: test clean deps
 test:

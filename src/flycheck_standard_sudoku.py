@@ -92,6 +92,8 @@ def simulated_annealing(sudoku, indices, steps_in_sweep, num_sweeps=10):
     return energy
 
 
+
+
 def monte_carlo_sweeps(sudoku, indices, temp, energy, steps_in_sweep):
     """
     Performs one monte carlo step.

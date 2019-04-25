@@ -68,9 +68,6 @@ def assert_argument_vals(args):
         valid_techniques=valid_techniques
     )
 
-    if args.technique == 'tempering':
-        raise SystemError("Not yet implemented!")
-
 
 if __name__ == "__main__":
     """
