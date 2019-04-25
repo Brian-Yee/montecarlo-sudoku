@@ -14,11 +14,12 @@ help:
 
 # EXAMPLES ]----------------------------------------------------------------------------------------
 .PHONY: anneal
-anneal:
+sudoku:
 	python main.py data/sudoku/test.txt
 
 samurai:
-	python main.py data/sudoku/test.txt
+	python main.py data/sudoku/samurai-sudoku.txt
+
 # CORE ]--------------------------------------------------------------------------------------------
 .PHONY: test clean deps
 
