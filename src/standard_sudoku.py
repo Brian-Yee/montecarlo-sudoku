@@ -43,10 +43,7 @@ def solve(sudoku, technique):
     mcmc_util.condition(sudoku, indices)
 
     try:
-        if technique == "annealing":
-            energy = simulated_annealing(sudoku, indices, steps_in_sweep)
-        elif technique == "tempering":
-            energy = parallel_tempering(sudoku, indices, steps_in_sweep)
+        energy = simulated_annealing(sudoku, indices, steps_in_sweep)
     except StopIteration as err:
         if err.value == "solved":
             energy = 0

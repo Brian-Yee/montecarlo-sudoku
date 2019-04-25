@@ -15,10 +15,13 @@ help:
 # EXAMPLES ]----------------------------------------------------------------------------------------
 .PHONY: anneal
 anneal:
-	python main.py data/sudoku/test.txt --technique annealing
+	python main.py data/sudoku/test.txt
 
+samurai:
+	python main.py data/sudoku/test.txt
 # CORE ]--------------------------------------------------------------------------------------------
 .PHONY: test clean deps
+
 test:
 	pylint *.py
 
