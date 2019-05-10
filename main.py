@@ -8,7 +8,7 @@ A sudoku solver that relies on Monte Carlo techniques.
 import argparse
 import os
 
-from src.io import read_sudoku_file
+from src.io import read_sudoku_file, print_sudoku
 from src.indexer import Indexer
 
 from src.backtrack import backtrack
@@ -29,16 +29,25 @@ def main(sudoku_fpath, solving_method):
     indexer = Indexer(sudoku)
 
     if solving_method == "backtrack":
-        sudoku = backtrack(sudoku, indexer)
+        solving_func = backtrack
     elif solving_method == "mcmc_simple":
-        sudoku = mcmc_simple(sudoku, indexer)
+        solving_func = mcmc_simple
     else:
         raise ValueError("Unknown Method")
 
+    sudoku = solving_func(sudoku, indexer)
+
+    line = 2 * sudoku.shape[1] * "_"
+
+    print(line)
     if sudoku is None:
         print("Unable to solve sudoku using {method}".format(method=solving_method))
+        print("Last state observed:")
     else:
-        print(sudoku)
+        print("Solved")
+    print(line)
+
+    print_sudoku(sudoku)
 
 
 def parse_arguments(solving_methods):

@@ -29,3 +29,17 @@ def read_sudoku_file(fpath):
         sudoku[system == str(i)] = i
 
     return sudoku
+
+
+def print_sudoku(sudoku):
+    """
+    Pretty prints a sudoku array.
+
+    Arguments:
+        sudoku: np.array
+            Sudoku system with 0/-1 indicating empty/forbidden cells respectively.
+    """
+    legend = {x: str(x) for x in range(1, 10)}
+    legend = {**legend, -1: " ", 0: "_"}
+    for row in sudoku:
+        print(" ".join(legend[x] for x in row))

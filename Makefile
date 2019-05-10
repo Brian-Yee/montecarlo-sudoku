@@ -11,6 +11,7 @@ help:
 	@echo "clean                Remove artificats of build and standardize repo."
 	@echo "deps                 Install dependencies."
 	@echo "sudoku.{method}      Solve an example sudoku using {method}"
+	@echo "double.{method}      Solve a double sudoku sytem using {method}"
 	@echo "profile.{method}     Perform a cursory profile on {method}"
 	@echo ""
 	@echo "{methods}            Methods available for passing to a target namespace."
@@ -39,6 +40,12 @@ sudoku.mcmc_simple:
 
 sudoku.backtrack:
 	python main.py data/wikipedia.txt backtrack
+
+double.backtrack:
+	python main.py data/double-1.txt backtrack
+
+double.mcmc_simple:
+	python main.py data/double-1.txt mcmc_simple
 
 # DEV ]---------------------------------------------------------------------------------------------
 .PHONY: profile.mcmc_simple profile.backtrack
