@@ -1,34 +1,53 @@
 #!/usr/bin/env python3
 # pylint: disable=pointless-string-statement
 """
-Monte Carlo Sudoku Solver
+Sudoku Solver
 
 A sudoku solver that relies on Monte Carlo techniques.
 """
 import argparse
 import os
 
-import numpy as np
+from src.io import read_sudoku_file
+from src.indexer import Indexer
 
-import src.standard_sudoku
+from src.backtrack import backtrack
+from src.mcmc_simple import mcmc_simple
 
 
-def main(sudoku_fpath):
+def main(sudoku_fpath, solving_method):
     """
     Main function module for Monte Carlo Sudoku Solver.
 
     Arguments:
-        sudoku_fpath:
+        sudoku_fpath: str
             File path leading to sudoku file.
+        solving_method: str
+            Method for solving sudoku array.
     """
-    with open(sudoku_fpath, "r") as fptr:
-        sudoku = np.array([x.split() for x in fptr]).astype(np.uint8)
-    src.standard_sudoku.solve(sudoku)
+    sudoku = read_sudoku_file(sudoku_fpath)
+    indexer = Indexer(sudoku)
+
+    if solving_method == "backtrack":
+        sudoku = backtrack(sudoku, indexer)
+    elif solving_method == "mcmc_simple":
+        sudoku = mcmc_simple(sudoku, indexer)
+    else:
+        raise ValueError("Unknown Method")
+
+    if sudoku is None:
+        print("Unable to solve sudoku using {method}".format(method=solving_method))
+    else:
+        print(sudoku)
 
 
-def parse_arguments():
+def parse_arguments(solving_methods):
     """
     Main CLI for interfacing with Monte Carlo Sudoku Solver.
+
+    Arguments:
+        solving_methods: tuple(str)
+            Methods for solving sudoku puzzles.
 
     Returns:
         argparse.Namespace
@@ -39,10 +58,16 @@ def parse_arguments():
 
     parser.add_argument("sudoku_fpath", type=str, help="Sudoku file to be solved.")
 
+    parser.add_argument(
+        "solving_method",
+        type=str,
+        help="Methods for solving sudoku: " + ", ".join(solving_methods),
+    )
+
     return parser.parse_args()
 
 
-def assert_argument_vals(args):
+def assert_argument_vals(args, solving_methods):
     """
     Various asserts to enforce CLI arguments passed are valid.
 
@@ -54,14 +79,20 @@ def assert_argument_vals(args):
         args.sudoku_fpath
     ), "Invalid file passed, was it type correctly?"
 
+    assert (
+        args.solving_method in solving_methods
+    ), "Invalid solving method. For full list use flag -h."
+
 
 if __name__ == "__main__":
     """
     CLI for parsing and validating values passed to the Monte Carlo Sudoku Solver.
     """
 
-    ARGS = parse_arguments()
+    VALID_METHODS = ("backtrack", "mcmc_simple")
 
-    assert_argument_vals(ARGS)
+    ARGS = parse_arguments(VALID_METHODS)
 
-    main(ARGS.sudoku_fpath)
+    assert_argument_vals(ARGS, VALID_METHODS)
+
+    main(ARGS.sudoku_fpath, ARGS.solving_method)
