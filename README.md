@@ -26,16 +26,20 @@ Preset examples are given in the makefile
 
 ```
 > make
-help                 Display this message.
-test                 Run testing suite.
-clean                Remove artificats of build and standardize repo.
-deps                 Install dependencies.
-sudoku.{method}      Solve an example sudoku using {method}
-profile.{method}     Perform a cursory profile on {method}
+help                       Display this message.
+test                       Run testing suite.
+clean                      Remove artificats of build and standardize repo.
+deps                       Install dependencies.
+sudoku.{method}            Solve an example sudoku using {method}.
+double-{joint}.{method}    Solve a double sudoku {joint}-block joined sytem using method.
+profile.{method}           Perform a cursory profile on {method}
 
-{methods}            Methods available for passing to a target namespace.
-    backtrack        Backtracking bruteforce algorithm.
-    mcmc_simple      Simple constant temperature MCMC.
+Vars
+{methods}                  Methods available for passing to a target namespace.
+    backtrack                  Backtracking bruteforce algorithm.
+    mcmc_simple                Simple constant temperature MCMC.
+{joint}                    Side length of conjoined blocks in generalized sudoku systems.
+    1, 2                       Integer values always less than blockwidth of a sudoku.
 ```
 
 Interface info for the main module is accessible via flag `-h`
