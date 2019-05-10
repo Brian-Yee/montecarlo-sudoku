@@ -31,15 +31,31 @@ def read_sudoku_file(fpath):
     return sudoku
 
 
-def print_sudoku(sudoku):
+def print_sudoku(sudoku, indexer):
     """
     Pretty prints a sudoku array.
+
+    Cells with violations have an `*` appended to them.
 
     Arguments:
         sudoku: np.array
             Sudoku system with 0/-1 indicating empty/forbidden cells respectively.
+        indexer: src.indexer.Indexer
+            Essential indices for manipulating a Sudoku system.
     """
     legend = {x: str(x) for x in range(1, 10)}
     legend = {**legend, -1: " ", 0: "_"}
-    for row in sudoku:
-        print(" ".join(legend[x] for x in row))
+
+    for i, row in enumerate(sudoku):
+        for j, val in enumerate(row):
+            print(legend[val], end="")
+            invalid = False
+            for slices in indexer.crosses(i, j):
+                if np.unique(sudoku[slices].squeeze()).shape[0] != 9:
+                    invalid = True
+                    break
+            if invalid:
+                print("*", end="")
+            else:
+                print(" ", end="")
+        print()

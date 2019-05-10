@@ -8,7 +8,7 @@ import random
 import numpy as np
 
 
-def mcmc_simple(sudoku, indexer, temp=0.3):
+def mcmc_simple(sudoku, indexer, temp=0.25):
     """
     Solve sudoku system with backtracking algorithm.
 

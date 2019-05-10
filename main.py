@@ -35,7 +35,13 @@ def main(sudoku_fpath, solving_method):
     else:
         raise ValueError("Unknown Method")
 
-    sudoku = solving_func(sudoku, indexer)
+    try:
+        sudoku = solving_func(sudoku, indexer)
+    except KeyboardInterrupt:
+        print("Method killed by user.")
+        print("Last state observed:")
+        print_sudoku(sudoku, indexer)
+        exit(0)
 
     line = 2 * sudoku.shape[1] * "_"
 
@@ -47,7 +53,7 @@ def main(sudoku_fpath, solving_method):
         print("Solved")
     print(line)
 
-    print_sudoku(sudoku)
+    print_sudoku(sudoku, indexer)
 
 
 def parse_arguments(solving_methods):

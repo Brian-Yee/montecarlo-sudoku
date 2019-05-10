@@ -56,6 +56,12 @@ double-2.backtrack:
 double-2.mcmc_simple:
 	python main.py data/double-2.txt mcmc_simple
 
+samurai.backtrack:
+	python main.py data/samurai.txt backtrack
+
+samurai.mcmc_simple:
+	python main.py data/samurai.txt mcmc_simple
+
 # DEV ]---------------------------------------------------------------------------------------------
 .PHONY: profile.mcmc_simple profile.backtrack
 
